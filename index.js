@@ -1,4 +1,5 @@
 const plugin = require("tailwindcss/plugin");
+const CLASS_NAME = "parallax";
 const PERSPECTIVE = 300; // px
 const LAYERS_DEF = [
   { id: -2, depth: -300 },
@@ -7,15 +8,15 @@ const LAYERS_DEF = [
   { id: 1, depth: 90, blockPointerEvents: true },
 ];
 module.exports = plugin.withOptions(function (options = {}) {
-  const { perspective, layers } = parseOptions(options);
+  const { perspective, layers, className } = parseOptions(options);
 
   return function ({ addComponents }) {
     addComponents({
-      ".perspective-wrapper": {
+      [`.${className}-wrapper`]: {
         height: "100vh",
         perspective: `${perspective}px`,
       },
-      ".perspective-box": {
+      [`.${className}-box`]: {
         "min-height": "100vh",
         position: "relative",
         "transform-style": "preserve-3d",
@@ -23,8 +24,8 @@ module.exports = plugin.withOptions(function (options = {}) {
       ...layers
         .map((layer) => {
           const { id, depth, nonAbsolute, blockPointerEvents } = layer;
-          const layerId = id >= 0 ? `layer-${id}` : `layer-bg-${id * -1}`;
-          const layerClass = `.${layerId}`;
+          const layerId = id >= 0 ? `${id}` : `bg-${id * -1}`;
+          const layerClass = `.${className}-layer-${layerId}`;
           const layerStyle = {
             transform: `translateZ(${depth}px) scale(${
               1 - depth / perspective
@@ -78,5 +79,9 @@ function parseOptions(config) {
     });
   }
   const layers = config.layers || LAYERS_DEF;
-  return { perspective, layers };
+  if (config.className && typeof config.className !== "string") {
+    throw new Error("className must be a string. Please check your config.");
+  }
+  const className = config.className || CLASS_NAME;
+  return { perspective, layers, className };
 }
