@@ -15,6 +15,7 @@ module.exports = plugin.withOptions(function (options = {}) {
       [`.${className}-wrapper`]: {
         height: "100vh",
         perspective: `${perspective}px`,
+        "overflow-x": "hidden",
       },
       [`.${className}-box`]: {
         "min-height": "100vh",
