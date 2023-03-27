@@ -1,0 +1,15 @@
+{
+  "name": "tailwind-parallax",
+  "version": "1.0.0",
+  "description": "TailwindCSS Parallax plugin",
+  "main": "index.js",
+  "repository": "https://github.com/smerfny/tailwind-parallax",
+  "author": "smerfny",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.2.7"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=3.0.0"
+  }
+}
