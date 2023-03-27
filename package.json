@@ -6,6 +6,10 @@
   "repository": "https://github.com/smerfny/tailwind-parallax",
   "author": "smerfny",
   "license": "MIT",
+  "scripts": {
+    "watch": "npm run build -- -w",
+    "build": "tailwindcss -o dist/tailwind.css"
+  },
   "devDependencies": {
     "tailwindcss": "^3.2.7"
   },
